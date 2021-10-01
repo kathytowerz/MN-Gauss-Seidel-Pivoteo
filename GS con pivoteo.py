@@ -87,7 +87,8 @@ def pivoteo_filas(M, v):
         colM = abs(M[i:,i])
         #Valor máximo por fila recorriendo columnas:
         maxM = np.argmax(colM)
-#Método de la burbuja para intercambiar filas de mayor a menor:        
+#Método de la burbuja para intercambiar filas de mayor a menor: 
+#Se hace el cambio con base en el máximo de cada fila.
         if(maxM != 0):
             aux = np.copy(M[i,:])
             M[i,:] = M[maxM+i,:]

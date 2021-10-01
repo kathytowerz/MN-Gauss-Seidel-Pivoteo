@@ -3,7 +3,7 @@
 Created on Wed Sep 29 19:18:12 2021
 
 @author: Kathleen Lucía Torres Mancilla 298944
-         FRancisco Javier Vite Mimila 299043
+         Francisco Javier Vite Mimila 299043
          
 Gauss Seidel con Pivoteo
 
@@ -11,6 +11,11 @@ De ejemplo vamos a resolver
 6x + 7y + 8z = 9   
 -x + 4y + 2z = 2
 -3x + 7y - 4z = -13  
+X
+6 7 8 = 9
+-1 4 2 = 2
+-3 7 -4 = -13
+Y
 """
 
 
@@ -73,7 +78,31 @@ A_np = np.array(A)
 
 b_np = np.array(b)
 
-      
+def pivoteo_filas(M, v):
+#Pivoteo parcial por filas. Variables para indicar el tamaño de la matriz:
+    t = np.shape(M)
+    n = t[0]
+    for i in range(0,n-1,1):
+        colM = abs(M[i:,i])
+        maxM = np.argmax(colM)
+#Método de la burbuja para intercambiar filas de mayor a menor:        
+        if(maxM != 0):
+            aux = np.copy(M[i,:])
+            M[i,:] = M[maxM+i,:]
+            M[maxM+i,:] = aux
+            print(M)
+        #if(maxv != 0):
+            auxv = np.copy(v[i])
+            v[i] = v[maxM+i]
+            v[maxM+i] = auxv
+            print(v)
+        return M, v
+     
+print("Pivoteo por filas: ",pivoteo_filas(A_np, b_np))   
+    
+
+print("A = ",A_np)
+print("b = ",b_np)
 def GS_NP(M_np, v_np, itmax, umb):
     #Auxiliares en el cálculo:
     x_np = np.zeros(len(M_np)) 
@@ -93,27 +122,4 @@ def GS_NP(M_np, v_np, itmax, umb):
             return x_np
         
 #Para imprimir valores:
-print("SolucioneS: ", GS_NP(A_np, b_np, 100000, 0.00001))
-
-n = len(A[0])
-for k in range(n-1):
-    s_max = 0
-    for i in range(k,n):
-        max_row = A[i][0]
-        for j in range(k,n):
-            if (A[i][j] > max_row):
-                max_row = A[i][j]
-        div_s = abs(A[i][k]/max_row)
-        print("Primer elemento entre s_i = ", div_s)
-        if (div_s > s_max):
-            s_max = div_s
-            row = i
-    aux_A = A[k]
-    A[k] = A[row]
-    A[row] = aux_A
-    
-    aux_b = b[k]
-    b[k] = b[row] 
-    b[row] =aux_b
-
-print(A, b)
+print("Soluciones: ", GS_NP(A_np, b_np, 100000, 0.00001))

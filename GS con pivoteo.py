@@ -16,6 +16,7 @@ X
 -1 4 2 = 2
 -3 7 -4 = -13
 Y
+Nota: cambiamos el orden de las ecuaciones para que se vea el funcionamiento del pivoteo.
 """
 
 
@@ -84,25 +85,22 @@ def pivoteo_filas(M, v):
     n = t[0]
     for i in range(0,n-1,1):
         colM = abs(M[i:,i])
+        #Valor máximo por fila recorriendo columnas:
         maxM = np.argmax(colM)
 #Método de la burbuja para intercambiar filas de mayor a menor:        
         if(maxM != 0):
             aux = np.copy(M[i,:])
             M[i,:] = M[maxM+i,:]
             M[maxM+i,:] = aux
-            print(M)
-        #if(maxv != 0):
+            print("A =", M)
             auxv = np.copy(v[i])
             v[i] = v[maxM+i]
             v[maxM+i] = auxv
-            print(v)
+            print("b =", v)
         return M, v
-     
-print("Pivoteo por filas: ",pivoteo_filas(A_np, b_np))   
+print("Matriz después del pivoteo: ")    
+pivoteo_filas(A_np, b_np)  
     
-
-print("A = ",A_np)
-print("b = ",b_np)
 def GS_NP(M_np, v_np, itmax, umb):
     #Auxiliares en el cálculo:
     x_np = np.zeros(len(M_np)) 
